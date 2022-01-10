@@ -1,4 +1,4 @@
-.login-form {
+.signup-form {
     font-family: Arial, Helvetica, sans-serif;
     border: 2px solid black;
     width: 500px;
@@ -8,14 +8,14 @@
     align-items: center;
 }
 
-.login-form form {
+.signup-form form {
     width: 500 px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.login-form button {
+.signup-form button {
     background-color: #F65858;
     padding: 8px 12px;
     margin: 16px 0px 0px;
@@ -24,13 +24,13 @@
     width: 350px;
 }
 
-.login-form label {
+.signup-form label {
     display: flex;
     flex-direction: column;
     font-size: 20px;
 }
 
-.login-form input {
+.signup-form input {
     width: 350px;
     padding: 8px 12px;
     font-size: 20px;

@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
     //serve frontend index.html at root route
     router.get('/', (req, res) => {
         res.cookie('XSRF-TOKEN', req.csrfToken());
-        return res.sendFile(
+        res.sendFile(
             path.resolve(__dirname, '../../frontend', 'build', 'index.html')
         );
     });
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
     //serve frontend's index.html at all other routes not starting with /api
     router.get(/^(?!\/?api).*/, (req, res) => {
         res.cookie('XSRF-TOKEN', req.csrfToken());
-        return res.sendFile(
+        res.sendFile(
             path.resolve(__dirname, '../../frontend', 'build', 'index.html')
         );
     });
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 if (process.env.NODE_ENV !== 'production') {
     router.get('/api/csrf/restore', (req, res) => {
         res.cookie('XSRF-TOKEN', req.csrfToken());
-        return res.json({});
+        res.status(201).json({});
     });
 }
 

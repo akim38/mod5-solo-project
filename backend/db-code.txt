@@ -1,0 +1,23 @@
+
+CREATE USER auth_app WITH PASSWORD 'password' CREATEDB;
+npx dotenv sequelize db:create
+
+npx sequelize model:generate --name User --attributes username:string,email:string,hashedPassword:string
+npx sequelize model:generate --name Group --attributes name:string,description:string,imageUrl:string
+npx sequelize model:generate --name Venue --attributes location:string,city:string,region:string
+npx sequelize model:generate --name Event --attributes userId:integer,venueId:integer,groupId:integer,name:string,date:date,description:text,imageUrl:string
+npx sequelize model:generate --name UserGroup --attributes userId:integer,groupId:integer
+
+npx sequelize seed:generate --name demo-user
+npx sequelize seed:generate --name group-seed
+npx sequelize seed:generate --name venue-seed
+npx sequelize seed:generate --name event-seed
+npx sequelize seed:generate --name userGroups-seed
+
+
+
+npx dotenv sequelize db:migrate
+npx dotenv sequelize db:seed:all
+
+npx dotenv sequelize db:migrate:undo:all
+npx dotenv sequelize db:seed:undo:all

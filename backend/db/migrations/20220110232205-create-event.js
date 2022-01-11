@@ -13,14 +13,8 @@ module.exports = {
         allowNull: false,
         references: { model: 'Users' }
       },
-      venueId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'Venues' }
-      },
       groupId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: { model: 'Groups' }
       },
       name: {
@@ -34,6 +28,17 @@ module.exports = {
       },
       description: {
         type: Sequelize.TEXT,
+        allowNull: false
+      },
+      location: {
+        type: Sequelize.STRING(55),
+        allowNull: false
+      },
+      city: {
+        type: Sequelize.STRING(55),
+      },
+      region: {
+        type: Sequelize.STRING(55),
         allowNull: false
       },
       imageUrl: {

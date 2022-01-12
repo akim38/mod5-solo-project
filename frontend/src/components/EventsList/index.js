@@ -1,12 +1,34 @@
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getEvents } from "../../store/events";
+import './EventsList.css'
 
 const EventsList = () => {
+    const dispatch = useDispatch();
+    const events = useSelector((state) => state.event.list.events);
+    console.log('EVENTSSSSSSSSSS', events);
+
+    useEffect(() => {
+        dispatch(getEvents());
+    }, [dispatch]);
+
+    if (!events) {
+        return null
+    };
 
     return (
-        <>
-        <h3>Upcoming Events</h3>
-        
-        </>
+        <div className="events-list">
+            <h3>Upcoming Events</h3>
+            {events.map(event => (
+                <div className="event-box" key={`div${event.id,event.name}`} >
+                    <ul>
+                        <p>{event.name}</p>
+                        <li>{event.date}</li>
+                        <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
+                    </ul>
+                </div>
+            ))}
+        </div>
     )
 };
 

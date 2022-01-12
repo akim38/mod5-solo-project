@@ -5,12 +5,18 @@ const LOAD_EVENT = 'event/LOAD';
 const ADD_EVENT = 'event/ADD';
 const UPDATE_EVENT = 'event/UPDATE';
 const DELETE_EVENT = 'event/DELETE';
+const LOAD_ONE_EVENT = 'event/LOAD_ONE'
 
 //action creators
 const loadEvent = (event) => ({
     type: LOAD_EVENT,
     event
 });
+
+const loadOneEvent = (event) => ({
+    type: LOAD_ONE_EVENT,
+    event
+})
 
 const addEvent = (event) => ({
     type: ADD_EVENT,
@@ -32,7 +38,7 @@ const deleteEvent = (eventId) => ({
 //thunks
 
 export const getEvents = () => async dispatch => {
-    const response = await fetch(`/api/events`);
+    const response = await csrfFetch(`/api/events`);
 
     if (response.ok) {
         const eventList = await response.json();
@@ -41,16 +47,16 @@ export const getEvents = () => async dispatch => {
 }
 
 export const getSingleEvent = (id) => async dispatch => {
-    const response = await fetch(`/api/events/${id}`);
+    const response = await csrfFetch(`/api/events/${id}`);
 
     if (response.ok) {
         const event = await response.json();
-        dispatch(loadEvent(event))
+        dispatch(loadOneEvent(event))
     }
 };
 
 export const createEvent = (payload) => async dispatch => {
-    const response = await fetch('/api/events', {
+    const response = await csrfFetch('/api/events', {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
@@ -64,7 +70,7 @@ export const createEvent = (payload) => async dispatch => {
 };
 
 export const editEvent = (id, payload) => async dispatch => {
-    const response = await fetch(`/api/events/:${id}`, {
+    const response = await csrfFetch(`/api/events/:${id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
@@ -77,7 +83,7 @@ export const editEvent = (id, payload) => async dispatch => {
 };
 
 export const removeEvent = (id) => async dispatch => {
-    const response = await fetch(`/api/events/:${id}`, {
+    const response = await csrfFetch(`/api/events/:${id}`, {
         method: "DELETE"
     });
 
@@ -92,17 +98,25 @@ export const removeEvent = (id) => async dispatch => {
 
 //reducer
 const initialState = {
-    list = []
+    list: []
 };
 
 const eventReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_EVENT: {
             const allEvents = {};
-            action.list.forEach((event) => {
+            console.log('ACTION???', action)
+            action.event.events.forEach((event) => {
                 allEvents[event.id] = event;
             });
-            return {... allEvents, ...state, list: action.list}
+            return {...allEvents, ...state, list: action.event}
+        }
+        case LOAD_ONE_EVENT: {
+            const allEvents = {};
+            console.log('ACTIONXXXX', action)
+            allEvents[action.event.event.id] = action.event;
+            console.log('ACTION RETURNNN', {...allEvents, ...state, list: action.event})
+            return {...allEvents, ...state, list: action.event}
         }
         case ADD_EVENT:
         case UPDATE_EVENT: {
@@ -114,13 +128,15 @@ const eventReducer = (state = initialState, action) => {
                 const eventList = newState.list.map((id) => newState[id]);
                 eventList.push(action.event)
                 return newState;
-            }
+            };
         }
         case DELETE_EVENT: {
             const newState = { ...state };
             delete newState[action.eventId];
             return newState;
         }
+        default:
+            return state;
     }
 }
 

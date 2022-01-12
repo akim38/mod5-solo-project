@@ -32,7 +32,7 @@ const validateEvent = [
 router.get('/', asyncHandler(async (req, res) => {
     const events = await Event.findAll();
 
-    console.log(events);
+    // console.log(events);
     return res.json({ events });
 }));
 

@@ -50,8 +50,9 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 //post new event
 router.post('/', requireAuth, validateEvent, asyncHandler(async (req, res) => {
-    const { groupId, name, date, description, location, city, region, imageUrl  } = req.body;
-    const userId = res.locals.user.id;
+    const { userId, groupId, name, date, description, location, city, region, imageUrl  } = req.body;
+
+    console.log('GOT TO THE ROUTER THING????')
 
     const newEvent = await Event.create({
         userId,

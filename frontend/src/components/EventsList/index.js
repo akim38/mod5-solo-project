@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getEvents } from "../../store/events";
+import CreateEventForm from "../CreateEventForm";
 import './EventsList.css'
 
 const EventsList = () => {
@@ -28,6 +29,7 @@ const EventsList = () => {
                     </ul>
                 </div>
             ))}
+            <CreateEventForm />
         </div>
     )
 };

@@ -56,6 +56,7 @@ export const getSingleEvent = (id) => async dispatch => {
 };
 
 export const createEvent = (payload) => async dispatch => {
+
     const response = await csrfFetch('/api/events', {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -120,12 +121,15 @@ const eventReducer = (state = initialState, action) => {
         }
         case ADD_EVENT:
         case UPDATE_EVENT: {
+            console.log('ACTION>>>>>>>', action)
             if (!state[action.event.id]) {
                 const newState = {
                     ...state,
-                    [action.event.id] : action.event
+                    [action.event.newEvent.id] : action.event.newEvent
                 }
-                const eventList = newState.list.map((id) => newState[id]);
+
+                console.log('NEW STATEEEEEEE', newState)
+                const eventList = newState.list.events.map((id) => newState[id]);
                 eventList.push(action.event)
                 return newState;
             };

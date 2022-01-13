@@ -30,26 +30,29 @@ const EventDetail = () => {
 
     return (
         <div className="event-detail">
-            {event.imageUrl && (<img className="event-image" alt="event" src={event.imageUrl} />)}
-            <div>
-                <h1>{event.name}</h1>
-                <p>Host: {event?.User?.username}</p>
-                <p>{event.description}</p>
-            </div>
-            <div>
-            <li>{dayjs(event.date).format('MMM D, YYYY h:mm A')}</li>
-            <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
-            </div>
-            <div>
-                {sessionUser?.id === event?.userId && <EditEventFormModal />}
-            </div>
-            <div>
+            <div className="change-event">
                 {sessionUser?.id === event?.userId &&
-                <button
-                    type="submit"
-                    id="delete-event-button"
-                    onClick={handleDelete}
-                >Delete Event</button>}
+                <>
+                    <EditEventFormModal />
+                    <button
+                        type="submit"
+                        id="delete-event-button"
+                        onClick={handleDelete}
+                    >Delete Event</button>
+                </>}
+            </div>
+            <div className="event-title">
+                <h2>{event.name}</h2>
+                <p>Host: {event?.User?.username}</p>
+            </div>
+            <div className="event-timeplace">
+                <li>{dayjs(event.date).format('MMM D, YYYY h:mm A')}</li>
+                <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
+            </div>
+            {event.imageUrl && (<img className="event-image" alt="event" src={event.imageUrl} />)}
+            <div className="event-description">
+                <h4>About:</h4>
+                {event.description}
             </div>
         </div>
     )

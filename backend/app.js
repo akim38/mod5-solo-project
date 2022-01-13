@@ -26,9 +26,7 @@ if (!isProduction) {
     app.use(cors());
 }
 //helmet helps better secure app by setting variety of headers
-app.use(helmet({
-    contentSecurityPolicy: false
-}));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 app.use(
     csurf({

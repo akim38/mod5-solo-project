@@ -44,6 +44,7 @@ const CreateEventForm = ({ setShowModal }) => {
             })
 
         if (event) {
+            setShowModal(false); 
             history.push(`/events/${event.newEvent.id}`);
         }
     }

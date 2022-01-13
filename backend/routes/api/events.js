@@ -12,7 +12,9 @@ const router = express.Router();
 const validateEvent = [
     check('name')
         .exists({ checkFalsy: true })
-        .withMessage('Please provide a name for your event.'),
+        .withMessage('Please provide a name for your event.')
+        .isLength({ max: 55})
+        .withMessage('Event Name is too long.'),
     check('date')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a date for your event.'),
@@ -24,7 +26,9 @@ const validateEvent = [
         .withMessage('Please provide a location for your event.'),
     check('region')
         .exists({ checkFalsy: true })
-        .withMessage('Please provide a region for your event.'),
+        .withMessage('Please provide a region for your event.')
+        .isLength({ max: 600})
+        .withMessage('Sorry! The URL is too long.'),
     handleValidationErrors
 ];
 
@@ -40,10 +44,18 @@ router.get('/', asyncHandler(async (req, res) => {
 router.get('/:id', asyncHandler(async (req, res) => {
     const eventId = parseInt(req.params.id);
 
-    const event = await Event.findByPk(eventId);
+    const event = await Event.findByPk(eventId, {
+        include: [
+            {
+                model: db.User
+            }
+        ]
+    });
+
+    const user = event.Users
 
     if (event) {
-        return res.json({ event })
+        return res.json({ event, user })
     }
     return res.json({ message: 'Event not found.'});
 }));
@@ -51,8 +63,6 @@ router.get('/:id', asyncHandler(async (req, res) => {
 //post new event
 router.post('/', requireAuth, validateEvent, asyncHandler(async (req, res) => {
     const { userId, groupId, name, date, description, location, city, region, imageUrl  } = req.body;
-
-    console.log('GOT TO THE ROUTER THING????')
 
     const newEvent = await Event.create({
         userId,
@@ -71,14 +81,22 @@ router.post('/', requireAuth, validateEvent, asyncHandler(async (req, res) => {
 
 //edit event
 router.put('/:id', requireAuth, validateEvent, asyncHandler(async (req, res) => {
-    const { groupId, name, date, description, location, city, region, imageUrl  } = req.body;
 
-    const eventId = parseInt(req.params.id);
+    const { id, userId, groupId, name, date, description, location, city, region, imageUrl  } = req.body;
 
-    const event = await Event.findByPk(eventId);
+    const event = await Event.findByPk(id, {
+        include: [
+            {
+                model: db.User
+            }
+        ]
+    });
+
+    const user = event.Users
 
     if (event) {
         await event.update({
+            userId,
             groupId,
             name,
             date,
@@ -89,7 +107,7 @@ router.put('/:id', requireAuth, validateEvent, asyncHandler(async (req, res) => 
             imageUrl
         });
 
-        return res.json({ event })
+        return res.json({ event, user })
     }
 
 }));
@@ -97,6 +115,7 @@ router.put('/:id', requireAuth, validateEvent, asyncHandler(async (req, res) => 
 //delete event
 router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
     const eventId = parseInt(req.params.id);
+    console.log( 'i think this is the issue', eventId);
 
     const event = await Event.findByPk(eventId);
 

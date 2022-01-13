@@ -85,7 +85,7 @@ export const editEvent = (payload) => async dispatch => {
 };
 
 export const removeEvent = (id) => async dispatch => {
-    const response = await csrfFetch(`/api/events/:${id}`, {
+    const response = await csrfFetch(`/api/events/${id}`, {
         method: "DELETE"
     });
 
@@ -111,6 +111,7 @@ const eventReducer = (state = initialState, action) => {
             action.list.events.forEach((event) => {
                 allEvents[event.id] = event;
             });
+            console.log('look here ALETHEIA', {...allEvents, ...state, list: action.list.events})
             return {...allEvents, ...state, list: action.list.events}
         }
         case LOAD_ONE_EVENT: {
@@ -118,7 +119,7 @@ const eventReducer = (state = initialState, action) => {
             console.log('ACTIONXXXX', action)
             allEvents[action.event.event.id] = action.event;
             console.log('ACTION RETURNNN', {...allEvents, ...state, list: action.event})
-            return {...allEvents, ...state, list: action.event.event}
+            return {...allEvents, ...state, single: action.event.event}
         }
         case ADD_EVENT: {
                 console.log('ACTION>>>>>>>', action)

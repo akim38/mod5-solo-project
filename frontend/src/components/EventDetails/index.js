@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getSingleEvent } from "../../store/events";
+import { useHistory, useParams } from "react-router-dom";
+import { getSingleEvent, removeEvent } from "../../store/events";
 import EditEventFormModal from "../EditEventFormModal";
 import './EventDetails.css'
 
@@ -10,13 +10,22 @@ const EventDetail = () => {
     // console.log('EVENTSSSSSSSSSS', event);
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const event = useSelector(state => state.event.list);
+    const event = useSelector(state => state.event.single);
+    const history = useHistory();
+    console.log('EVENTSSSSSSSSSS DETAIL', event);
 
     useEffect(() => {
         dispatch(getSingleEvent(eventId));
     }, [dispatch, eventId]);
 
     if (!event) return null;
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        await dispatch(removeEvent(eventId))
+            .then(history.push("/events"))
+    }
 
     return (
         <div className="event-detail">
@@ -33,6 +42,15 @@ const EventDetail = () => {
             <div>
                 {sessionUser.id === event?.userId && <EditEventFormModal />}
             </div>
+            <div>
+                {sessionUser.id === event?.userId &&
+                <button
+                    type="submit"
+                    id="delete-event-button"
+                    onClick={handleDelete}
+                >Delete Event</button>}
+            </div>
+
 
         </div>
     )

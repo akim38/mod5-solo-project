@@ -26,7 +26,7 @@ const EventDetail = () => {
         e.preventDefault();
 
         await dispatch(removeEvent(eventId))
-            .then(history.push("/events"))
+            .then((res) => history.push("/events"))
     }
 
     return (

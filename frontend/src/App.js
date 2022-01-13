@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import EventsList from "./components/EventsList";
 import EventDetail from "./components/EventDetails";
+import SplashPage from "./components/SplashPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+            <SplashPage />
+          </Route>
           <Route path='/signup'>
             <SignupFormPage />
           </Route>
@@ -29,6 +33,9 @@ function App() {
           </Route>
           <Route path='/events/:eventId'>
             <EventDetail />
+          </Route>
+          <Route>
+            <h3>404: Page Not Found</h3>
           </Route>
         </Switch>
       )}

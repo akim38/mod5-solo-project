@@ -7,12 +7,12 @@ import './EventDetails.css'
 
 const EventDetail = () => {
     const { eventId } = useParams();
-    // console.log('EVENTSSSSSSSSSS', event);
+    
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const event = useSelector(state => state.event.single);
     const history = useHistory();
-    console.log('EVENTSSSSSSSSSS DETAIL', event);
+
 
     useEffect(() => {
         dispatch(getSingleEvent(eventId));
@@ -40,18 +40,16 @@ const EventDetail = () => {
             <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
             </div>
             <div>
-                {sessionUser.id === event?.userId && <EditEventFormModal />}
+                {sessionUser?.id === event?.userId && <EditEventFormModal />}
             </div>
             <div>
-                {sessionUser.id === event?.userId &&
+                {sessionUser?.id === event?.userId &&
                 <button
                     type="submit"
                     id="delete-event-button"
                     onClick={handleDelete}
                 >Delete Event</button>}
             </div>
-
-
         </div>
     )
 

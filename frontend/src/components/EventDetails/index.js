@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getSingleEvent, removeEvent } from "../../store/events";
 import EditEventFormModal from "../EditEventFormModal";
-import './EventDetails.css'
+import './EventDetails.css';
+import dayjs from 'dayjs';
 
 const EventDetail = () => {
     const { eventId } = useParams();
-    
+
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const event = useSelector(state => state.event.single);
@@ -36,7 +37,7 @@ const EventDetail = () => {
                 <p>{event.description}</p>
             </div>
             <div>
-            <li>{event.date}</li>
+            <li>{dayjs(event.date).format('MMM D, YYYY h:mm A')}</li>
             <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
             </div>
             <div>

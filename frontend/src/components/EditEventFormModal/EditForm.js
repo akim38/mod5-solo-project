@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editEvent } from "../../store/events";
+import dayjs from 'dayjs';
 
 const EditEventForm = ({ setShowModal }) => {
     const dispatch = useDispatch();
@@ -9,7 +10,7 @@ const EditEventForm = ({ setShowModal }) => {
     let event = useSelector(state => state.event.single);
 
     const [name, setName] = useState(event?.name);
-    const [date , setDate] = useState(event?.date);
+    const [date , setDate] = useState((event?.date).slice(0, 16));
     const [location, setLocation] = useState(event?.location);
     const [city, setCity] = useState(event?.city);
     const [region, setRegion] = useState(event?.region);
@@ -47,7 +48,9 @@ const EditEventForm = ({ setShowModal }) => {
     const handleCancelClick = (e) => {
         e.preventDefault();
         setShowModal(false);
-      };
+    };
+
+    const minDate = dayjs(new Date()).format("YYYY-MM-DD[T]HH[:]mm");
 
     return (
         <section>
@@ -76,6 +79,7 @@ const EditEventForm = ({ setShowModal }) => {
                         id='date'
                         value={date}
                         onChange={e => setDate(e.target.value)}
+                        min={minDate}
                     />
                 </label>
                 <label> Location

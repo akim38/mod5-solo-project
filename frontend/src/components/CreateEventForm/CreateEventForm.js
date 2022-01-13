@@ -14,7 +14,7 @@ const CreateEventForm = ({ setShowModal }) => {
     const minDate = dayjs(new Date()).format("YYYY-MM-DD[T]HH[:]mm");
 
     const [name, setName] = useState('');
-    const [date , setDate] = useState(minDate);
+    const [date , setDate] = useState(dayjs(new Date()).format("YYYY-MM-DD[T08:00]"));
     const [location, setLocation] = useState('');
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');

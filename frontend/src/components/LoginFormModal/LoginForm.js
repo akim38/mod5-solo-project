@@ -20,6 +20,14 @@ const LoginForm = () => {
             });
     }
 
+    const loginDemo = (e) => {
+        e.preventDefault();
+        return dispatch(login({
+            credential: 'demo@user.io',
+            password: 'password'
+        }))
+    }
+
     return (
         <div className="login-form">
             <h3>Log In</h3>
@@ -48,6 +56,7 @@ const LoginForm = () => {
                     />
                 </label>
                 <button type="submit">Log In</button>
+                <button onClick={loginDemo}>Log In as Demo User!</button>
             </form>
 
         </div>

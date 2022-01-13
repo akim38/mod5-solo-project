@@ -5,6 +5,7 @@ import { getSingleEvent, removeEvent } from "../../store/events";
 import EditEventFormModal from "../EditEventFormModal";
 import './EventDetails.css';
 import dayjs from 'dayjs';
+import { NavLink } from "react-router-dom";
 
 const EventDetail = () => {
     const { eventId } = useParams();
@@ -54,6 +55,9 @@ const EventDetail = () => {
                 <h4>About:</h4>
                 {event.description}
             </div>
+            <NavLink to={`/events`}>
+                Back to events!
+            </NavLink>
         </div>
     )
 

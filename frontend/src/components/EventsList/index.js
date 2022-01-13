@@ -6,7 +6,7 @@ import './EventsList.css'
 
 const EventsList = () => {
     const dispatch = useDispatch();
-    const events = useSelector((state) => state.event.list.events);
+    const events = useSelector((state) => state.event.list);
     console.log('EVENTSSSSSSSSSS', events);
 
     useEffect(() => {

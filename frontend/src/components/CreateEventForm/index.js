@@ -34,8 +34,9 @@ const CreateEventForm = () => {
         }
 
         const event = await dispatch(createEvent(payload));
+        console.log('CREATED EVENT~~~~~~~~', event)
         if (event) {
-            history.push(`/events/${event.id}`);
+            history.push(`/events/${event.newEvent.id}`);
             //hideForm(); add some hiding form functionality later !!!!!
         }
     }

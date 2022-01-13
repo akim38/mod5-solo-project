@@ -8,9 +8,9 @@ const DELETE_EVENT = 'event/DELETE';
 const LOAD_ONE_EVENT = 'event/LOAD_ONE'
 
 //action creators
-const loadEvent = (event) => ({
+const loadEvent = (list) => ({
     type: LOAD_EVENT,
-    event
+    list
 });
 
 const loadOneEvent = (event) => ({
@@ -107,17 +107,17 @@ const eventReducer = (state = initialState, action) => {
         case LOAD_EVENT: {
             const allEvents = {};
             console.log('ACTION???', action)
-            action.event.events.forEach((event) => {
+            action.list.events.forEach((event) => {
                 allEvents[event.id] = event;
             });
-            return {...allEvents, ...state, list: action.event}
+            return {...allEvents, ...state, list: action.list.events}
         }
         case LOAD_ONE_EVENT: {
             const allEvents = {};
             console.log('ACTIONXXXX', action)
             allEvents[action.event.event.id] = action.event;
             console.log('ACTION RETURNNN', {...allEvents, ...state, list: action.event})
-            return {...allEvents, ...state, list: action.event}
+            return {...allEvents, ...state, list: action.event.event}
         }
         case ADD_EVENT:
         case UPDATE_EVENT: {
@@ -129,7 +129,7 @@ const eventReducer = (state = initialState, action) => {
                 }
 
                 console.log('NEW STATEEEEEEE', newState)
-                const eventList = newState.list.events.map((id) => newState[id]);
+                const eventList = newState.list.map((id) => newState[id]);
                 eventList.push(action.event)
                 return newState;
             };

@@ -6,7 +6,7 @@ import './EventDetails.css'
 
 const EventDetail = () => {
     const { eventId } = useParams();
-    const event = useSelector(state => state.event[eventId]);
+    const event = useSelector(state => state.event.list);
     console.log('EVENTSSSSSSSSSS', event);
     const dispatch = useDispatch();
     // const [showEventEditForm, setShowEventEditForm] = useState(false);
@@ -20,15 +20,15 @@ const EventDetail = () => {
 
     return (
         <div className="event-detail">
-            {event.event.imageUrl && (<img className="event-image" src={event.event.imageUrl} />)}
+            {event.imageUrl && (<img className="event-image" src={event.imageUrl} />)}
             <div>
-                <h1>{event.event.name}</h1>
+                <h1>{event.name}</h1>
                 <p>Host: </p>
-                <p>{event.event.description}</p>
+                <p>{event.description}</p>
             </div>
             <div>
-            <li>{event.event.date}</li>
-            <li>{event.event.location}{event.event.city && `, ${event.event.city}`}, {event.event.region}</li>
+            <li>{event.date}</li>
+            <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
             </div>
         </div>
     )

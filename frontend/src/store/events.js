@@ -143,7 +143,7 @@ const eventReducer = (state = initialState, action) => {
                     ...state,
                     [action.event.event.id] : action.event.event,
                 };
-                newState.list = action.event.event;
+                newState.single = action.event.event;
                 console.log('NEW STATEEEEEEE', newState)
                 return newState;
 

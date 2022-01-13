@@ -6,9 +6,9 @@ const EditEventForm = ({ setShowModal }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const userId = sessionUser.id;
-    let event = useSelector(state => state.event.list);
+    let event = useSelector(state => state.event.single);
 
-    console.log('EEEEVEEEEENT', event);
+    // console.log('EEEEVEEEEENT', event);
 
     const [name, setName] = useState(event?.name);
     const [date , setDate] = useState(event?.date);

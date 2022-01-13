@@ -23,9 +23,8 @@ const addEvent = (event) => ({
     event
 });
 
-const updateEvent = (eventId, event) => ({
+const updateEvent = (event) => ({
     type: UPDATE_EVENT,
-    eventId,
     event
 });
 
@@ -70,8 +69,9 @@ export const createEvent = (payload) => async dispatch => {
       }
 };
 
-export const editEvent = (id, payload) => async dispatch => {
-    const response = await csrfFetch(`/api/events/:${id}`, {
+export const editEvent = (payload) => async dispatch => {
+    console.log('WTHHHHH', payload)
+    const response = await csrfFetch(`/api/events/:${payload.id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
@@ -80,6 +80,7 @@ export const editEvent = (id, payload) => async dispatch => {
     if (response.ok) {
         const updatedEvent = await response.json();
         dispatch(updateEvent(updatedEvent));
+        return updatedEvent;
     }
 };
 
@@ -119,20 +120,32 @@ const eventReducer = (state = initialState, action) => {
             console.log('ACTION RETURNNN', {...allEvents, ...state, list: action.event})
             return {...allEvents, ...state, list: action.event.event}
         }
-        case ADD_EVENT:
+        case ADD_EVENT: {
+                console.log('ACTION>>>>>>>', action)
+                let newState;
+                if (!state[action.event.id]) {
+                    newState = {
+                        ...state,
+                        [action.event.newEvent.id] : action.event.newEvent
+                    }
+
+                    console.log('NEW STATEEEEEEE', newState)
+                    const eventList = newState.list.map((id) => newState[id]);
+                    eventList.push(action.event)
+
+                };
+                return newState;
+            }
         case UPDATE_EVENT: {
-            console.log('ACTION>>>>>>>', action)
-            if (!state[action.event.id]) {
+            console.log('ACTION EDIT EDIT', action)
                 const newState = {
                     ...state,
-                    [action.event.newEvent.id] : action.event.newEvent
-                }
-
+                    [action.event.event.id] : action.event.event,
+                };
+                newState.list = action.event.event;
                 console.log('NEW STATEEEEEEE', newState)
-                const eventList = newState.list.map((id) => newState[id]);
-                eventList.push(action.event)
                 return newState;
-            };
+
         }
         case DELETE_EVENT: {
             const newState = { ...state };

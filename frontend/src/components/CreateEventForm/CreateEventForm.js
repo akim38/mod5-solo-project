@@ -11,8 +11,10 @@ const CreateEventForm = ({ setShowModal }) => {
     const sessionUser = useSelector(state => state.session.user);
     const userId = sessionUser.id;
 
+    const minDate = dayjs(new Date()).format("YYYY-MM-DD[T]HH[:]mm");
+
     const [name, setName] = useState('');
-    const [date , setDate] = useState(new Date());
+    const [date , setDate] = useState(minDate);
     const [location, setLocation] = useState('');
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');
@@ -50,7 +52,6 @@ const CreateEventForm = ({ setShowModal }) => {
         setShowModal(false);
     };
 
-    const minDate = dayjs(new Date()).format("YYYY-MM-DD[T]HH[:]mm");
 
     return (
         <section>

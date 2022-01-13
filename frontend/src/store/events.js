@@ -150,6 +150,7 @@ const eventReducer = (state = initialState, action) => {
             delete newState[action.eventId];
             newState.list = newState.list.filter((id) => id !== action.eventId);
             newState.single = null;
+            newState.entries = {...newState.entries}
             return newState;
         }
         default:

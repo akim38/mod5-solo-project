@@ -9,7 +9,7 @@ const EditEventForm = ({ setShowModal }) => {
     let event = useSelector(state => state.event.single);
 
     const [name, setName] = useState(event?.name);
-    const [date , setDate] = useState(event?.date);
+    const [date , setDate] = useState((event?.date).slice(0, 16));
     const [location, setLocation] = useState(event?.location);
     const [city, setCity] = useState(event?.city);
     const [region, setRegion] = useState(event?.region);

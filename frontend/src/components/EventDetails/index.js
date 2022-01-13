@@ -47,7 +47,7 @@ const EventDetail = () => {
             </div>
             <div className="event-timeplace">
                 <li>{dayjs(event.date).format('MMM D, YYYY h:mm A')}</li>
-                <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
+                <li>{event.location.toLowerCase()}{event.city && `, ${event.city.toLowerCase()}`}, {event.region.toLowerCase()}</li>
             </div>
             {event.imageUrl && (<img className="event-image" alt="event" src={event.imageUrl} />)}
             <div className="event-description">

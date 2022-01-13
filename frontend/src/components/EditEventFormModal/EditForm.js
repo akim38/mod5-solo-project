@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editEvent } from "../../store/events";
 import dayjs from 'dayjs';
+import './EditEventForm.css';
 
 const EditEventForm = ({ setShowModal }) => {
     const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const EditEventForm = ({ setShowModal }) => {
     const minDate = dayjs(new Date()).format("YYYY-MM-DD[T]HH[:]mm");
 
     return (
-        <section>
+        <section className="edit-event-form">
             <h2>Edit Your Event</h2>
             {errors.length > 0 && (
                 <div>

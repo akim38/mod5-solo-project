@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createEvent } from "../../store/events";
 import dayjs from 'dayjs';
+import './CreateEventForm.css';
 
 
 const CreateEventForm = ({ setShowModal }) => {
@@ -53,7 +54,7 @@ const CreateEventForm = ({ setShowModal }) => {
     const minDate = dayjs(new Date()).format("YYYY-MM-DD[T]HH[:]mm");
 
     return (
-        <section>
+        <section className="create-event-form">
             <h2>Create a New Event</h2>
             {errors.length > 0 && (
                 <div>
@@ -63,7 +64,7 @@ const CreateEventForm = ({ setShowModal }) => {
                     </ul>
                 </div>
             )}
-            <form onSubmit={handleSubmit}>
+            <form  onSubmit={handleSubmit}>
                 <label htmlFor="name"> Name of Event:
                     <input
                         type="text"
@@ -113,7 +114,7 @@ const CreateEventForm = ({ setShowModal }) => {
                         onChange={e => setDescription(e.target.value)}
                     />
                 </label>
-                <label> Optional Image Url
+                <label> Image Url (Optional)
                     <input
                         type="url"
                         id='url'

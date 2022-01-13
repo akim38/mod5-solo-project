@@ -8,7 +8,7 @@ const CreateEventForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
-    const userId = sessionUser.id
+    const userId = sessionUser.id;
 
     const [name, setName] = useState('');
     const [date , setDate] = useState(new Date());
@@ -17,7 +17,7 @@ const CreateEventForm = () => {
     const [region, setRegion] = useState('');
     const [description, setDescription] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +33,11 @@ const CreateEventForm = () => {
             imageUrl
         }
 
-        const event = await dispatch(createEvent(payload));
+        const event = await dispatch(createEvent(payload))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) return setErrors(data.errors)
+            })
         console.log('CREATED EVENT~~~~~~~~', event)
         if (event) {
             history.push(`/events/${event.newEvent.id}`);
@@ -48,13 +52,21 @@ const CreateEventForm = () => {
 
     return (
         <section>
+            <h2>Create a New Event</h2>
+            {errors.length > 0 && (
+                <div>
+                    The following errors were found:
+                    <ul>
+                        {errors.map(error => <li key={error}>{error}</li>)}
+                    </ul>
+                </div>
+            )}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name"> Name of Event:
                     <input
                         type="text"
                         placeholder="Event Name"
                         id='name'
-                        required
                         value={name}
                         onChange={e => setName(e.target.value)}
                     />
@@ -63,7 +75,6 @@ const CreateEventForm = () => {
                     <input
                         type="datetime-local"
                         id='date'
-                        required
                         value={date}
                         onChange={e => setDate(e.target.value)}
                     />
@@ -72,12 +83,11 @@ const CreateEventForm = () => {
                     <input
                         type="text"
                         id='location'
-                        required
                         value={location}
                         onChange={e => setLocation(e.target.value)}
                     />
                 </label>
-                <label> City
+                <label> City (Optional)
                     <input
                         type="text"
                         id='city'
@@ -89,7 +99,6 @@ const CreateEventForm = () => {
                     <input
                         type="text"
                         id='region'
-                        required
                         value={region}
                         onChange={e => setRegion(e.target.value)}
                     />
@@ -97,7 +106,6 @@ const CreateEventForm = () => {
                 <label> Description
                     <textarea
                         id='description'
-                        required
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                     />

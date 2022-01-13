@@ -20,10 +20,10 @@ const EventDetail = () => {
 
     return (
         <div className="event-detail">
-            {event.imageUrl && (<img className="event-image" src={event.imageUrl} />)}
+            {event.imageUrl && (<img className="event-image" alt="event" src={event.imageUrl} />)}
             <div>
                 <h1>{event.name}</h1>
-                <p>Host: </p>
+                <p>Host: {event.User?.username}</p>
                 <p>{event.description}</p>
             </div>
             <div>

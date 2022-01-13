@@ -20,8 +20,8 @@ const EventsList = () => {
     return (
         <div className="events-list">
             <h3>Upcoming Events</h3>
-            {events.map(event => (
-                <div className="event-box" key={`div${event.id,event.name}`} >
+            {events?.map(event => (
+                <div className="event-box" key={`div${event.id},${event.name}`} >
                     <ul>
                         <p>{event.name}</p>
                         <li>{event.date}</li>

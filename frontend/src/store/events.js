@@ -70,7 +70,7 @@ export const createEvent = (payload) => async dispatch => {
 };
 
 export const editEvent = (payload) => async dispatch => {
-    console.log('WTHHHHH', payload)
+
     const response = await csrfFetch(`/api/events/:${payload.id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
@@ -107,22 +107,21 @@ const eventReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_EVENT: {
             const allEvents = {};
-            console.log('ACTION???', action)
+
             action.list.events.forEach((event) => {
                 allEvents[event.id] = event;
             });
-            console.log('look here ALETHEIA', {...allEvents, ...state, list: action.list.events})
+
             return {...allEvents, ...state, list: action.list.events}
         }
         case LOAD_ONE_EVENT: {
             const allEvents = {};
-            console.log('ACTIONXXXX', action)
+
             allEvents[action.event.event.id] = action.event;
-            console.log('ACTION RETURNNN', {...allEvents, ...state, list: action.event})
+
             return {...allEvents, ...state, single: action.event.event}
         }
         case ADD_EVENT: {
-                console.log('ACTION>>>>>>>', action)
                 let newState;
                 if (!state[action.event.id]) {
                     newState = {
@@ -130,7 +129,6 @@ const eventReducer = (state = initialState, action) => {
                         [action.event.newEvent.id] : action.event.newEvent
                     }
 
-                    console.log('NEW STATEEEEEEE', newState)
                     const eventList = newState.list.map((id) => newState[id]);
                     eventList.push(action.event)
 
@@ -138,13 +136,12 @@ const eventReducer = (state = initialState, action) => {
                 return newState;
             }
         case UPDATE_EVENT: {
-            console.log('ACTION EDIT EDIT', action)
                 const newState = {
                     ...state,
                     [action.event.event.id] : action.event.event,
                 };
                 newState.single = action.event.event;
-                console.log('NEW STATEEEEEEE', newState)
+
                 return newState;
 
         }

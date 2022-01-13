@@ -1,28 +1,28 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editEvent } from "../../store/events";
+import { useHistory } from "react-router-dom";
+import { createEvent } from "../../store/events";
 
-const EditEventForm = ({ setShowModal }) => {
+
+const CreateEventForm = ({ setShowModal }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const userId = sessionUser.id;
-    let event = useSelector(state => state.event.single);
 
-    const [name, setName] = useState(event?.name);
-    const [date , setDate] = useState(event?.date);
-    const [location, setLocation] = useState(event?.location);
-    const [city, setCity] = useState(event?.city);
-    const [region, setRegion] = useState(event?.region);
-    const [description, setDescription] = useState(event?.description);
-    const [imageUrl, setImageUrl] = useState(event?.imageUrl);
+    const [name, setName] = useState('');
+    const [date , setDate] = useState(new Date());
+    const [location, setLocation] = useState('');
+    const [city, setCity] = useState('');
+    const [region, setRegion] = useState('');
+    const [description, setDescription] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
     const [errors, setErrors] = useState([]);
-    const id = event.id;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const payload = {
-            id,
             userId,
             name,
             date,
@@ -33,25 +33,25 @@ const EditEventForm = ({ setShowModal }) => {
             imageUrl
         }
 
-        const editedEvent = await dispatch(editEvent(payload))
+        const event = await dispatch(createEvent(payload))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) return setErrors(data.errors)
             })
-
-        if (editedEvent) {
-            setShowModal(false)
+        console.log('CREATED EVENT~~~~~~~~', event)
+        if (event) {
+            history.push(`/events/${event.newEvent.id}`);
         }
     }
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        setShowModal(false);
+        setShowModal(false); 
       };
 
     return (
         <section>
-            <h2>Edit Your Event</h2>
+            <h2>Create a New Event</h2>
             {errors.length > 0 && (
                 <div>
                     The following errors were found:
@@ -109,7 +109,7 @@ const EditEventForm = ({ setShowModal }) => {
                         onChange={e => setDescription(e.target.value)}
                     />
                 </label>
-                <label> Image Url (Optional)
+                <label> Optional Image Url
                     <input
                         type="url"
                         id='url'
@@ -117,11 +117,11 @@ const EditEventForm = ({ setShowModal }) => {
                         onChange={e => setImageUrl(e.target.value)}
                     />
                 </label>
-                <button type="submit">Update Event</button>
+                <button type="submit">Create New Event</button>
                 <button type="button" onClick={handleCancelClick}>Cancel</button>
             </form>
         </section>
     )
 }
 
-export default EditEventForm;
+export default CreateEventForm;

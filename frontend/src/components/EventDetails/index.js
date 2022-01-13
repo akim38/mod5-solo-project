@@ -40,18 +40,16 @@ const EventDetail = () => {
             <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
             </div>
             <div>
-                {sessionUser.id === event?.userId && <EditEventFormModal />}
+                {sessionUser?.id === event?.userId && <EditEventFormModal />}
             </div>
             <div>
-                {sessionUser.id === event?.userId &&
+                {sessionUser?.id === event?.userId &&
                 <button
                     type="submit"
                     id="delete-event-button"
                     onClick={handleDelete}
                 >Delete Event</button>}
             </div>
-
-
         </div>
     )
 

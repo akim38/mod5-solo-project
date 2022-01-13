@@ -19,19 +19,19 @@ const EventsList = () => {
 
     return (
         <div className="events-list">
-            <h3>Upcoming Events</h3>
+            <h2>Upcoming Events</h2>
+            {sessionUser && <CreateEventFormModal />}
             {events?.map(event => (
                 <NavLink key={event.name} to={`/events/${event.id}`}>
                     <div className="event-box" key={`div${event.id},${event.name}`} >
                         <ul>
                             <p>{event.name}</p>
                             <li>{dayjs(event.date).format('MMM D, YYYY h:mm A')}</li>
-                            <li>{event.location}{event.city && `, ${event.city}`}, {event.region}</li>
+                            <li>{event.location.toLowerCase()}{event.city && `, ${event.city.toLowerCase()}`}, {event.region.toLowerCase()}</li>
                         </ul>
                     </div>
                 </NavLink>
             ))}
-            {sessionUser && <CreateEventFormModal />}
         </div>
     )
 };

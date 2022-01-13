@@ -148,6 +148,8 @@ const eventReducer = (state = initialState, action) => {
         case DELETE_EVENT: {
             const newState = { ...state };
             delete newState[action.eventId];
+            newState.list = newState.list.filter((id) => id !== action.eventId);
+            newState.single = null; 
             return newState;
         }
         default:

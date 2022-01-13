@@ -7,12 +7,12 @@ import './EventDetails.css'
 
 const EventDetail = () => {
     const { eventId } = useParams();
-    // console.log('EVENTSSSSSSSSSS', event);
+    
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const event = useSelector(state => state.event.single);
     const history = useHistory();
-    console.log('EVENTSSSSSSSSSS DETAIL', event);
+
 
     useEffect(() => {
         dispatch(getSingleEvent(eventId));

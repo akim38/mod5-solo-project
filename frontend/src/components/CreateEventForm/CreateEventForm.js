@@ -38,7 +38,7 @@ const CreateEventForm = ({ setShowModal }) => {
                 const data = await res.json();
                 if (data && data.errors) return setErrors(data.errors)
             })
-        console.log('CREATED EVENT~~~~~~~~', event)
+        
         if (event) {
             history.push(`/events/${event.newEvent.id}`);
         }
@@ -46,7 +46,7 @@ const CreateEventForm = ({ setShowModal }) => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        setShowModal(false); 
+        setShowModal(false);
       };
 
     return (

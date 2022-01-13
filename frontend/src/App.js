@@ -34,6 +34,9 @@ function App() {
           <Route path='/events/:eventId'>
             <EventDetail />
           </Route>
+          <Route>
+            <h3>404: Page Not Found</h3>
+          </Route>
         </Switch>
       )}
     </>

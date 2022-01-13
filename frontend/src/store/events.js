@@ -112,7 +112,7 @@ const eventReducer = (state = initialState, action) => {
                 allEvents[event.id] = event;
             });
 
-            return {...allEvents, ...state, list: action.list.events}
+            return {...allEvents, ...state, list: (action.list.events)}
         }
         case LOAD_ONE_EVENT: {
             const allEvents = {};
@@ -149,7 +149,7 @@ const eventReducer = (state = initialState, action) => {
             const newState = { ...state };
             delete newState[action.eventId];
             newState.list = newState.list.filter((id) => id !== action.eventId);
-            newState.single = null; 
+            newState.single = null;
             return newState;
         }
         default:

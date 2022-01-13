@@ -34,7 +34,7 @@ const validateEvent = [
 
 //get all events
 router.get('/', asyncHandler(async (req, res) => {
-    const events = await Event.findAll();
+    const events = await Event.findAll({order: [['date', 'ASC']]});
 
     // console.log(events);
     return res.json({ events });

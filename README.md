@@ -2,6 +2,38 @@
 
 <a href="https://pokemeetup.herokuapp.com/">PokeMeetup</a>, based off of <a href="https://www.meetup.com/">Meetup</a>, is a website where Pokemon Trainers and fans can sign up, view and create Pokemon related events, and create and join groups that fit their interests.
 
+## Index
+* Feature List
+* React Components
+* Database Schema
+* Frontend Routes
+* API Routes Document
+* Redux Store Tree Document
+
+## Summary
+
+## Technologies Used
+* bcryptjs
+* cookie-parser
+* csurf
+* dotenv
+* express
+* helmet
+* jsonwebtoken
+* morgan
+* per-env
+* pg
+* sequelize
+* dayjs
+* react
+* react-dom
+* react-redux
+* react-router-dom
+* react-scripts
+* redux
+* redux-thunk
+
+
 ## Launching Locally
 
 1. Clone the project repository
@@ -38,3 +70,4 @@
 
 
 
+## To-Do's / Future Features 

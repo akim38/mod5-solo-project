@@ -56,7 +56,7 @@ const EventDetail = () => {
                 {event.description}
             </div>
             <NavLink to={`/events`}>
-                Back to events!
+                Back to events!→
             </NavLink>
         </div>
     )

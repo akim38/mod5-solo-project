@@ -1,1 +1,31 @@
 
+.splash-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.splash-text {
+    width: 500px;
+    font-size: 18px;
+}
+
+.splash-area a {
+    font-size: 18px;
+    color: rgb(233, 131, 131);
+}
+
+.about {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.about a {
+    margin-left: 10px;
+    color: gray;
+}

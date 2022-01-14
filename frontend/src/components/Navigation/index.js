@@ -26,12 +26,16 @@ const Navigation = ({ isLoaded }) => {
     }
 
     return (
-        <ul className="navbar">
-            <li className="nav-links">
+        <div className="navbar">
+            <div className="nav-links">
                 <NavLink exact to='/'>Home</NavLink>
+                <NavLink to='/events'>Events</NavLink>
+            </div>
+            <h2 className="nav-title">PokéMeetup</h2>
+            <div className="session-links">
                 {isLoaded && sessionLinks}
-            </li>
-        </ul>
+            </div>
+        </div>
     )
 }
 

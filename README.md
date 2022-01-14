@@ -11,6 +11,15 @@
 * Redux Store Tree Document
 
 ## Summary
+* Splash Page
+![Screenshot 2022-01-14 063200](https://user-images.githubusercontent.com/89177551/149532132-75227545-93ad-4c57-a672-651e3fa00a7f.jpg)
+* Events List
+![Screenshot 2022-01-14 063328](https://user-images.githubusercontent.com/89177551/149532361-a8ac3d2c-1458-4d8c-8d22-b40135a7ab49.jpg)
+* Events Detail 
+![Screenshot 2022-01-14 063419](https://user-images.githubusercontent.com/89177551/149532522-25cffb71-d490-4217-93be-5fcdba8b7439.jpg)
+
+ 
+
 
 ## Technologies Used
 * bcryptjs
@@ -71,3 +80,5 @@
 
 
 ## To-Do's / Future Features 
+* Groups Feature
+* Search Feature
